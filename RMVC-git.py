@@ -33,7 +33,7 @@ def get_subset(power_set):
     return subset
 
 
-def upsilon_function(e_name, E_named):
+def delta_function(e_name, E_named):
     # Take the considered set and the elements
     e_set = E_named[e_name]  # All elements in all sets
     not_in_e_set = U - e_set  # the elements not in p_set
@@ -58,11 +58,11 @@ def create_membership_matrix(E_keys, e_name):
     membership_matrix = {e_key: {} for e_key in E_keys}
 
     for e_key in E_keys:
-        upsilon_results = upsilon_function(e_key, e_name)
+        delta_results = delta_function(e_key, e_name)
         g_coeff = len(e_name[e_key]) * (len(E_named) - 1)
         for element in U:
-            if element in upsilon_results:
-                membership_value = Fraction(upsilon_results[element], g_coeff)
+            if element in delta_results:
+                membership_value = Fraction(delta_results[element], g_coeff)
             else:
                 membership_value = 1  # If there is no gamma result, assign 1
             membership_matrix[e_key][element] = membership_value
@@ -124,12 +124,12 @@ E_keys = e_name.keys()
 print("============RESULTS================")
 
 for e_key in E_keys:
-    upsilon_results = upsilon_function(e_key, e_name)
+    delta_results = delta_function(e_key, e_name)
     g_coeff = len(e_name[e_key]) * (len(E_named) - 1)
     print(f"Proper coefficient for {e_key}:", g_coeff)
     # i = 1
-    for u, upsilon_sum in upsilon_results.items():
-        M = Fraction(upsilon_sum, g_coeff)
+    for u, delta_sum in delta_results.items():
+        M = Fraction(delta_sum, g_coeff)
         print(
             f"The relative membership value for the element {u} that is not a member of {e_key} is {M}.")
         # i += 1
